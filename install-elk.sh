@@ -1,5 +1,6 @@
 #!/bin/bash
-
+echo -e "Mise a jour du systeme..."
+apt-get -y upgrade
 echo -e "Installation de Open-JDK7\n"
 apt-get -y install openjdk-7-jre
 echo -e "Installation de Elasticsearch\n"
@@ -9,10 +10,10 @@ echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main
 apt-get update
 apt-get -y install elasticsearch=1.4.4
 echo -e "Configuration de Elasticsearch\n"
-echo 'network.host=localhost' >> /etc/elasticsearch/elasticsearch.yml
+echo "network.host: localhost" >> /etc/elasticsearch/elasticsearch.yml
 echo -e "Demarrage du serveur et ajout du service au demarrage\n"
 service elasticsearch restart
-update-rc.d add elasticsearch defaults 95 10
+update-rc.d elasticsearch defaults 95 10
 echo -e "Elasticsearch pret\n"
 sleep 1
 echo -e "Installation de Kibana\n"
@@ -28,7 +29,7 @@ cp -R ~/kibana-4*/* /opt/kibana/
 echo -e "Ajout de Kibana en tant que service\n"
 cd /etc/init.d && wget https://gist.githubusercontent.com/thisismitch/8b15ac909aed214ad04a/raw/bce61d85643c2dcdfbc2728c55a41dab444dca20/kibana4
 chmod +x /etc/init.d/kibana4
-update-rc.d add kibana4 defaults 96 9
+update-rc.d kibana4 defaults 96 9
 service kibana4 start
 echo -e "Kibana pret\n"
 echo -e "Installation du serveur web Nginx\n"
@@ -36,10 +37,10 @@ apt-get -y install nginx apache2-utils
 echo -e "Creation d'un mot de passe pour l'administrateur kibanaadmin\n"
 htpasswd -c /etc/nginx/htpasswd.users kibanaadmin
 echo -e "Configuration du serveur Nginx\n"
-echo "server {
+echo -e "server {
     listen 80;
 
-    server_name example.com;
+    server_name elk-preprod.stickyadstv.com;
 
     auth_basic "Restricted Access";
         auth_basic_user_file /etc/nginx/htpasswd.users;
@@ -47,10 +48,10 @@ echo "server {
 	    location / {
             proxy_pass http://localhost:5601;
             proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Upgrade \$http_upgrade;
             proxy_set_header Connection 'upgrade';
-	            proxy_set_header Host $host;
-		            proxy_cache_bypass $http_upgrade;        
+	            proxy_set_header Host \$host;
+		            proxy_cache_bypass \$http_upgrade;        
 			        }
 			}" > /etc/nginx/sites-available/default
 service nginx restart
@@ -60,7 +61,6 @@ echo 'deb http://packages.elasticsearch.org/logstash/1.5/debian stable main' | t
 apt-get update
 apt-get -y install logstash
 echo -e "Configuration de Logstash\n"
-cat logstash.conf > /etc/logstash/conf.d/logstash.conf
 service logstash restart
 echo -e "Logstash pret\n"
 echo -e "Pile ELK prete !!\n"
