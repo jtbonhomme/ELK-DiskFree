@@ -42,7 +42,7 @@ echo -e "server {
 
     server_name elk-preprod.stickyadstv.com;
 
-    auth_basic "Restricted Access";
+    auth_basic \"Restricted Access\";
         auth_basic_user_file /etc/nginx/htpasswd.users;
 	
 	    location / {
