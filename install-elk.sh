@@ -85,7 +85,7 @@ case $choix in
 	
 	        server_name $FQDN;
 	
-	        auth_basic "Restricted Access";
+	        auth_basic \"Restricted Access\";
 	        auth_basic_user_file /etc/nginx/htpasswd.users;
 	
 	        location / {
@@ -189,7 +189,7 @@ case $choix in
 	
 	        server_name $FQDN;
 	
-	        auth_basic "Restricted Access";
+	        auth_basic \"Restricted Access\";
 	        auth_basic_user_file /etc/nginx/htpasswd.users;
 	
 	        location / {
