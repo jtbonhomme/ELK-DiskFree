@@ -20,8 +20,11 @@ echo -e "Quelle partie de la pile ELK voulez-vous installer ?
 4. Toute la pile."
 read choix
 case $choix in
-	1) echo -e "Installation de Elasticsearch\n"
+	1)clear 
+	echo -e "Installation de Elasticsearch\n"
+	sleep 1
 	echo -e "Création du source list pour Elasticsearch\n"
+	sleep 1
 	wget -O - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
 	echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' | tee /etc/apt/sources.list.d/elasticsearch.list
 	apt-get update
@@ -38,11 +41,14 @@ case $choix in
 	exit
 	;;
 ###############################################################
-	2) echo -e "Installation de Logstash\n"
+	2)clear
+	echo -e "Installation de Logstash\n"
+	sleep 1
 	echo 'deb http://packages.elasticsearch.org/logstash/1.5/debian stable main' | tee /etc/apt/sources.list.d/logstash.list
 	apt-get update
 	apt-get -y install logstash
 	echo -e "Configuration de Logstash\n"
+	sleep 1
 	cp ./logstash /etc/init.d/logstash
 	service logstash restart
 	echo -e "Logstash pret\n"
@@ -50,23 +56,29 @@ case $choix in
 	exit
 	;;
 #####################################################################
-	3)echo -e "Installation du serveur web Nginx\n"
+	3)clear
+	echo -e "Installation du serveur web Nginx\n"
+	sleep 1
 	apt-get -y install nginx apache2-utils
 	echo -e "Creation du compte administrateur pour Kibana ...\n"
+	sleep 1
 	echo -e "Entrez votre login ( sans majuscules, ni espaces, ni caracteres speciaux ) :"
 	read login
 	echo -e "Creation d'un mot de passe pour l'administrateur $login\n"
 	htpasswd -c /etc/nginx/htpasswd.users $login
 	echo -e "Configuration du serveur Nginx\n"
+	sleep 1
 	echo -e "Creation des elements necessaires pour une connexion HTTPS ( .key, .crt)\n"
 	sleep 1
 	echo -e "Installation de openssl\n"
+	sleep 1
 	apt-get -y install openssl
 	echo -e "Choisissez l'emplacement du dossier contenant les certificats ( ex : /etc/nginx/certmonsite) :"
 	read location
 	mkdir $location
 	cd $location
 	echo -e "Creation des certificats ...\n"
+	sleep 1
 	openssl genrsa -out server.key 1024
 	openssl req -new -key server.key -out server.csr
 	openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
@@ -110,16 +122,21 @@ case $choix in
 	echo -e "Nginx pret\n"
 	sleep 1
 	echo -e "Installation de Kibana\n"
+	sleep 1
 	cd 
 	echo -e "Recupérationdes fichiers d'installation\n"
+	sleep 1
 	wget https://download.elasticsearch.org/kibana/kibana/kibana-4.0.1-linux-x64.tar.gz
 	echo -e "Decompression\n"
+	sleep 1
 	tar xvf kibana-*.tar.gz
 	echo -e "Configuration\n"
+	sleep 1
 	sed -i -e "s/\"0\.0\.0\.0\"/\"localhost\"/g" ~/kibana-4*/config/kibana.yml
 	mkdir -p /opt/kibana
 	cp -R ~/kibana-4*/* /opt/kibana/
 	echo -e "Ajout de Kibana en tant que service\n"
+	sleep 1
 	cd /etc/init.d && wget https://gist.githubusercontent.com/thisismitch/8b15ac909aed214ad04a/raw/bce61d85643c2dcdfbc2728c55a41dab444dca20/kibana4
 	chmod +x /etc/init.d/kibana4
 	update-rc.d kibana4 defaults 96 9
@@ -128,10 +145,14 @@ case $choix in
 	sleep 1
 	exit
 	;;
-	4) echo -e "Installation de la pile complete Elasticsearch Logstash Kibana\n"
+#############################################################################################
+	4)clear 
+	echo -e "Installation de la pile complete Elasticsearch Logstash Kibana\n"
 	sleep 1
 	echo -e "Installation de Elasticsearch\n"
+	sleep 1
 	echo -e "Création du source list pour Elasticsearch\n"
+	sleep 1
 	wget -O - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
 	echo 'deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' | tee /etc/apt/sources.list.d/elasticsearch.list
 	apt-get update
@@ -144,24 +165,30 @@ case $choix in
 	service elasticsearch restart
 	update-rc.d elasticsearch defaults 95 10
 	echo -e "Elasticsearch pret\n"
-	sleep 1
+	sleep 2
 	echo -e "Installation de Logstash\n"
+	sleep 1
 	echo 'deb http://packages.elasticsearch.org/logstash/1.5/debian stable main' | tee /etc/apt/sources.list.d/logstash.list
 	apt-get update
 	apt-get -y install logstash
 	echo -e "Configuration de Logstash\n"
+	sleep 1
 	cp ./logstash /etc/init.d/logstash
 	service logstash restart
 	echo -e "Logstash pret\n"
-	sleep 1 
+	sleep 2
 	echo -e "Installation du serveur web Nginx\n"
+	sleep 1
 	apt-get -y install nginx apache2-utils
 	echo -e "Creation du compte administrateur pour Kibana ...\n"
+	sleep 1
 	echo -e "Entrez votre login ( sans majuscules, ni espaces, ni caracteres speciaux ) :"
 	read login
 	echo -e "Creation d'un mot de passe pour l'administrateur $login\n"
+	sleep 1
 	htpasswd -c /etc/nginx/htpasswd.users $login
 	echo -e "Configuration du serveur Nginx\n"
+	sleep 1
 	echo -e "Creation des elements necessaires pour une connexion HTTPS ( .key, .crt)\n"
 	sleep 1
 	echo -e "Installation de openssl\n"
@@ -171,6 +198,7 @@ case $choix in
 	mkdir $location
 	cd $location
 	echo -e "Creation des certificats ...\n"
+	sleep 1
 	openssl genrsa -out server.key 1024
 	openssl req -new -key server.key -out server.csr
 	openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
@@ -212,18 +240,23 @@ case $choix in
 " > /etc/nginx/sites-available/default
 	service nginx restart
 	echo -e "Nginx pret\n"
-	sleep 1
+	sleep 2
 	echo -e "Installation de Kibana\n"
+	sleep 1
 	cd 
-	echo -e "Recupérationdes fichiers d'installation\n"
+	echo -e "Recupération des fichiers d'installation\n"
+	sleep 1
 	wget https://download.elasticsearch.org/kibana/kibana/kibana-4.0.1-linux-x64.tar.gz
 	echo -e "Decompression\n"
+	sleep 1
 	tar xvf kibana-*.tar.gz
 	echo -e "Configuration\n"
+	sleep 1
 	sed -i -e "s/\"0\.0\.0\.0\"/\"localhost\"/g" ~/kibana-4*/config/kibana.yml
 	mkdir -p /opt/kibana
 	cp -R ~/kibana-4*/* /opt/kibana/
 	echo -e "Ajout de Kibana en tant que service\n"
+	sleep 1
 	cd /etc/init.d && wget https://gist.githubusercontent.com/thisismitch/8b15ac909aed214ad04a/raw/bce61d85643c2dcdfbc2728c55a41dab444dca20/kibana4
 	chmod +x /etc/init.d/kibana4
 	update-rc.d kibana4 defaults 96 9
