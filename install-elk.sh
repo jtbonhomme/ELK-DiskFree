@@ -43,7 +43,7 @@ case $choix in
 	apt-get update
 	apt-get -y install logstash
 	echo -e "Configuration de Logstash\n"
-	####
+	cp ./logstash /etc/init.d/logstash
 	service logstash restart
 	echo -e "Logstash pret\n"
 	sleep 1 
@@ -150,7 +150,7 @@ case $choix in
 	apt-get update
 	apt-get -y install logstash
 	echo -e "Configuration de Logstash\n"
-	###
+	cp ./logstash /etc/init.d/logstash
 	service logstash restart
 	echo -e "Logstash pret\n"
 	sleep 1 
