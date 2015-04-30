@@ -10,7 +10,7 @@
 		;;
     [nN]*  )  echo "Sortie" ; exit ;;
     q*     )  exit  ;;
-    * )       echo "Mauvaise réponse (O ou N).  Veuillez recommencer..." ;;  
+    * )      exit;;  
   esac
 
 echo -e "Quelle partie de la pile ELK voulez-vous installer ? 
@@ -119,7 +119,7 @@ case $choix in
 	  # Try a few times to kill TERM the program
 	  if status ; then
 	    pid=`cat "\$pidfile"`
-	    echo "Killing \$name (pid \$pid) with SIGTERM"
+	    echo "Killing $name (pid $pid) with SIGTERM"
 	    kill -TERM $pid
 	    # Wait for it to exit.
 	    for i in 1 2 3 4 5 ; do
