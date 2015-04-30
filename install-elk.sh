@@ -8,7 +8,7 @@
 		echo -e "Installation de Open-JDK7\n"
 		apt-get -y install openjdk-7-jre
 		;;
-    [nN]*  )  echo "Sortie" ; break ;;
+    [nN]*  )  echo "Sortie" ; exit ;;
     q*     )  exit  ;;
     * )       echo "Mauvaise réponse (O ou N).  Veuillez recommencer..." ;;  
   esac
@@ -35,6 +35,7 @@ case $choix in
 	update-rc.d elasticsearch defaults 95 10
 	echo -e "Elasticsearch pret\n"
 	sleep 1
+	exit
 	;;
 ###############################################################
 	2) echo -e "Installation de Logstash\n"
@@ -199,7 +200,7 @@ case $choix in
 	service logstash restart
 	echo -e "Logstash pret\n"
 	sleep 1 
-	break
+	exit
 	;;
 #####################################################################
 	3)echo -e "Installation du serveur web Nginx\n"
@@ -278,7 +279,7 @@ case $choix in
 	service kibana4 start
 	echo -e "Kibana pret\n"
 	sleep 1
-	break
+	exit
 	;;
 	4) echo -e "Installation de la pile complete Elasticsearch Logstash Kibana\n"
 	sleep 1
@@ -537,7 +538,7 @@ case $choix in
 	sleep 1
 	echo -e "Pile ELK prete !!\n"
 	sleep 1 
-	break
+	exit
 	;;
 	esac
 	
