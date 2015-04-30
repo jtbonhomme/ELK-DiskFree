@@ -119,7 +119,7 @@ case $choix in
 	  # Try a few times to kill TERM the program
 	  if status ; then
 	    pid=`cat "\$pidfile"`
-	    echo -e "Killing \$name (pid \$pid) with SIGTERM"
+	    echo -e "Killing \$name ( pid \$pid ) with SIGTERM"
 	    kill -TERM $pid
 	    # Wait for it to exit.
 	    for i in 1 2 3 4 5 ; do
