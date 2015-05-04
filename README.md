@@ -1,4 +1,4 @@
-# Logstash-DiskFree
+# ELK-DiskFree
 
 
 Un pile ELK custom pour centraliser les écritures disques uniquement sur le serveur de logs.
