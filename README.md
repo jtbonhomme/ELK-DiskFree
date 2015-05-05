@@ -8,9 +8,4 @@ Tout cela grâce à la redirection des logs via des flux réseaux.
 <p>A ce jour => Utilisable pour Nginx et les logs systèmes</p>
 -----------------------------------------------------------------------
 
-###INSTALLATION
-
-Utiliser le script d'installation: <br/>
-<code> ./install-elk.sh </code>
-
-Entrez ensuite les informations que vous souhaitez utiliser pour la configuration de la pile ELK
+Pour toute informations en rapport avec l'installation ou la configuration de ELK-DiskFree rendez-vous sur le [Wiki](https://github.com/alexandrebouthinon/ELK-DiskFree/wiki/Accueil)
