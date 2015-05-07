@@ -202,7 +202,7 @@ case $choix in
 	cd $location
 	echo -e "\nCreation des certificats ...\n"
 	sleep 1
-	openssl genrsa -out server.key 1024
+	openssl genrsa -out server.key 2048
 	openssl req -new -key server.key -out server.csr
 	openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 	echo -e "Entrez le nom de domaine de votre serveur web ( ex : mon.siteweb.com) :"
