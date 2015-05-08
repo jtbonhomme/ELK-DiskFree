@@ -8,7 +8,6 @@
 		apt-get -y upgrade
 		echo -e "Installation de Open-JDK7\n"
 		apt-get -y install openjdk-7-jre
-		clear
 		;;
     [nN]*  )  echo "Sortie" ; exit ;;
     q*     )  exit  ;;
