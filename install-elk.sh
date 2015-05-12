@@ -44,8 +44,8 @@
 	apt-get -y install logstash
 	echo -e "\nConfiguration de Logstash\n"
 	sleep 1
-	cp ./logstash.conf /etc/logstash/conf.d/logstash.conf
-	cp ./logstash /etc/init.d/logstash
+#	cp ./logstash.conf /etc/logstash/conf.d/logstash.conf
+#	cp ./logstash /etc/init.d/logstash
 	service logstash restart
 	echo -e "\nLogstash pret\n"
 	sleep 2
